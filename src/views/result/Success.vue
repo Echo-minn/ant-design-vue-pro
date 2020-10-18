@@ -1,84 +1,258 @@
 <template>
-  <a-card :bordered="false">
-    <a-result status="success" :sub-title="description" :title="title">
-      <template #extra>
-        <a-button type="primary">返回列表</a-button>
-        <a-button style="margin-left: 8px">查看项目</a-button>
-        <a-button style="margin-left: 8px">打印</a-button>
-      </template>
-      <div class="content">
-        <div style="font-size: 16px; color: rgba(0, 0, 0, 0.85); font-weight: 500; margin-bottom: 20px;">项目名称</div>
-        <a-row style="margin-bottom: 16px">
-          <a-col :xs="24" :sm="12" :md="12" :lg="12" :xl="6">
-            <span style="color: rgba(0, 0, 0, 0.85)">项目 ID：</span>
-            20180724089
-          </a-col>
-          <a-col :xs="24" :sm="12" :md="12" :lg="12" :xl="6">
-            <span style="color: rgba(0, 0, 0, 0.85)">负责人：</span>
-            曲丽丽是谁？
-          </a-col>
-          <a-col :xs="24" :sm="24" :md="24" :lg="24" :xl="12">
-            <span style="color: rgba(0, 0, 0, 0.85)">生效时间：</span>
-            2016-12-12 ~ 2017-12-12
-          </a-col>
-        </a-row>
-        <a-steps :current="1" :direction="isMobile && directionType.vertical || directionType.horizontal" progressDot>
-          <a-step >
-            <span style="font-size: 14px" slot="title">创建项目</span>
-            <template slot="description">
-              <div style="fontSize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px;text-align: left;" slot="description" >
-                <div style="margin: 8px 0 4px">
-                  曲丽丽
-                  <a-icon style="margin-left: 8px" type="dingding-o" />
-                </div>
-                <div>2016-12-12 12:32</div>
-              </div>
-            </template>
-          </a-step>
-          <a-step title="部门初审">
-            <span style="font-size: 14px" slot="title">部门初审</span>
-            <template slot="description">
-              <div style="fontSize: 12px; color: rgba(0, 0, 0, 0.45); position: relative; left: 42px;text-align: left;" slot="description" >
-                <div style="margin: 8px 0 4px">
-                  周毛毛
-                  <a-icon style="margin-left: 8px; color: #00A0E9" type="dingding-o" />
-                </div>
-                <div><a href="">催一下</a></div>
-              </div>
-            </template>
-          </a-step>
-          <a-step title="财务复核">
-            <span style="font-size: 14px" slot="title">财务复核</span>
-          </a-step>
-          <a-step title="完成" >
-            <span style="font-size: 14px" slot="title">完成</span>
-          </a-step>
-        </a-steps>
-      </div>
-    </a-result>
-  </a-card>
+  <div>
+    <div class="antd-pro-pages-dashboard-analysis-twoColLayout" :class="!isMobile && 'desktop'">
+      <a-row :gutter="24" type="flex" :style="{ marginTop: '24px' }">
+        <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
+          <a-card hoverable style="width: 100%">
+            <img
+              slot="cover"
+              alt="example"
+              src="https://s1.ax1x.com/2020/10/18/0jNens.jpg"
+            />
+            <a-card-meta title="Europe Street beat">
+              <template slot="description">
+                开源，我想很多小公司用它的原因之一也是这个，不会涉及到专利和产权纠纷。
+                2.功能齐全，对于很多硬件设备都有丰富的驱动程序，只需要移植一下，不需要改动太多
+                3.Linux内核小，且可裁剪，多任务支持、多用户支持，性能高、稳定性好。
+              </template>
+            </a-card-meta>
+          </a-card>
+        </a-col>
+        <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
+          <div id="wordCloud" ref="wordCloud" class="wordCloud-back" style="height: 50vh">
+          </div>
+
+          <br />
+
+          <a-card
+            style="width:100%"
+            :tab-list="tabListNoTitle"
+            :active-tab-key="noTitleKey"
+            @tabChange="key => onTabChange(key, 'noTitleKey')"
+          >
+            <p v-if="noTitleKey === 'article'">
+              article content
+            </p>
+            <p v-else-if="noTitleKey === 'app'">
+              app content
+            </p>
+            <p v-else="noTitleKey === 'project'">
+              project content
+            </p>
+
+            <a slot="tabBarExtraContent" href="#">More</a>
+          </a-card>
+
+        </a-col>
+      </a-row>
+<!--      关注度-->
+      <a-row :gutter="24" type="flex" :style="{ marginTop: '24px' }">
+        <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
+        <a-rate class="rate" :default-value="rate" disabled :tooltips="ratedesc" />
+        <span class="ant-rate-text">{{ ratedesc[rate - 1] }}</span>
+        </a-col>
+        <a-col class="button-outer" :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
+          <a-button class="next-button" type="primary"> Go forward<a-icon type="right" /> </a-button>
+        </a-col>
+      </a-row>
+    </div>
+  </div>
 </template>
 
 <script>
+import echarts from 'echarts'
+import moment from 'moment'
 import { baseMixin } from '@/store/app-mixin'
-
-const directionType = {
-  horizontal: 'horizontal',
-  vertical: 'vertical'
-}
-
+import "echarts-wordcloud/dist/echarts-wordcloud"
+import "echarts-wordcloud/dist/echarts-wordcloud.min"
 export default {
-  name: 'Success',
   mixins: [baseMixin],
-  data () {
-    this.directionType = directionType
-    return {
-      title: '提交成功',
-      description: '提交结果页用于反馈一系列操作任务的处理结果，\n' +
-          ' 如果仅是简单操作，使用 Message 全局提示反馈即可。\n' +
-          ' 本文字区域可以展示简单的补充说明，如果有类似展示\n' +
-          ' “单据”的需求，下面这个灰色区域可以呈现比较复杂的内容。'
+  mounted() {
+    this.initWordCloud()
+  },
+  data(){
+    return{
+      rate:2,
+      ratedesc: ['terrible', 'bad', 'normal', 'good', 'wonderful'],
+      tabList: [
+        {
+          key: 'tab1',
+          // tab: 'tab1',
+          scopedSlots: { tab: 'customRender' },
+        },
+        {
+          key: 'tab2',
+          tab: 'tab2',
+        },
+      ],
+      contentList: {
+        tab1: 'content1',
+        tab2: 'content2',
+      },
+      tabListNoTitle: [
+        {
+          key: 'article',
+          tab: 'article',
+        },
+        {
+          key: 'app',
+          tab: 'app',
+        },
+        {
+          key: 'project',
+          tab: 'project',
+        },
+      ],
+
+      key: 'tab1',
+      noTitleKey: 'app',
+
+      wordCloud:null,
+      worddata: [{
+        name: "审批",
+        value: 2500
+      },
+        {
+          name: "佣金",
+          value: 2300
+        },
+        {
+          name: "发票",
+          value: 2000
+        },
+        {
+          name: "扶贫金额",
+          value: 1900
+        },
+        {
+          name: "增值税",
+          value: 1800
+        },
+        {
+          name: "差旅费",
+          value: 1700
+        },
+        {
+          name: "核算",
+          value: 1600
+        },
+        {
+          name: "商旅单",
+          value: 1500
+        },
+        {
+          name: "报销",
+          value: 1200
+        },
+        {
+          name: "交通费",
+          value: 1100
+        },
+        {
+          name: "业务招待费",
+          value: 900
+        },
+        {
+          name: "水费",
+          value: 800
+        },
+        {
+          name: "电费",
+          value: 700
+        },
+      ],
+    }
+  },
+  methods:{
+    onTabChange(key, type) {
+      console.log(key, type);
+      this[type] = key;
+    },
+    // Echarts 的 resize 方法
+    resizeHandler() {
+      this.wordCloud.resize()
+    },
+    initWordCloud(){
+      const _this = this
+      _this.wordCloud=echarts.init(this.$refs.wordCloud)
+      _this.wordCloud.setOption({
+        series: [
+          {
+            type: "wordCloud",
+            //用来调整词之间的距离
+            gridSize: 10,
+            //用来调整字的大小范围
+            // Text size range which the value in data will be mapped to.
+            // Default to have minimum 12px and maximum 60px size.
+            sizeRange: [14, 60],
+            // Text rotation range and step in degree. Text will be rotated randomly in range [-90,                                                                             90] by rotationStep 45
+            //用来调整词的旋转方向，，[0,0]--代表着没有角度，也就是词为水平方向，需要设置角度参考注释内容
+            rotationRange: [-45, 0, 45, 90],
+            // rotationRange: [ 0,90],
+            // rotationRange: [0, 0],
+            //随机生成字体颜色
+            // maskImage: maskImage,
+            textStyle: {
+              normal: {
+                color: function() {
+                  return (
+                    "rgb(" +
+                    Math.round(Math.random() * 255) +
+                    ", " +
+                    Math.round(Math.random() * 255) +
+                    ", " +
+                    Math.round(Math.random() * 255) +
+                    ")"
+                  );
+                }
+              }
+            },
+            //位置相关设置
+            // Folllowing left/top/width/height/right/bottom are used for positioning the word cloud
+            // Default to be put in the center and has 75% x 80% size.
+            left: "center",
+            top: "center",
+            right: null,
+            bottom: null,
+            width: "200%",
+            height: "200%",
+            //数据
+            data: _this.worddata
+          }
+        ]
+      })
+      window.addEventListener('resize',this.resizeHandler)
     }
   }
 }
 </script>
+
+<style scoped>
+.antd-pro-pages-dashboard-analysis-twoColLayout {
+  position: relative;
+  display: flex;
+  display: block;
+  flex-flow: row wrap;
+}
+.wordCloud-back{
+  /*background: -webkit-linear-gradient(left,rgba(0,216,247,0),rgba(0,175,237,1));*/
+  background: -webkit-linear-gradient(right, #f0f8fa 0%, #d6e5fd 100%);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius:20px ;
+  border: #7f8c8d solid 3px;
+}
+.rate{
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.button-outer{
+  position: relative;
+}
+.next-button{
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+</style>

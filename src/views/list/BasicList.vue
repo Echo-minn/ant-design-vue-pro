@@ -1,38 +1,24 @@
 <template>
   <page-header-wrapper>
-    <a-card :bordered="false">
-      <a-row>
-        <a-col :sm="8" :xs="24">
-          <info title="我的待办" value="8个任务" :bordered="true" />
-        </a-col>
-        <a-col :sm="8" :xs="24">
-          <info title="本周任务平均处理时间" value="32分钟" :bordered="true" />
-        </a-col>
-        <a-col :sm="8" :xs="24">
-          <info title="本周完成任务数" value="24个" />
-        </a-col>
-      </a-row>
-    </a-card>
-
     <a-card
       style="margin-top: 24px"
       :bordered="false"
-      title="标准列表">
+      title="文化广场">
 
       <div slot="extra">
         <a-radio-group v-model="status">
           <a-radio-button value="all">全部</a-radio-button>
-          <a-radio-button value="processing">进行中</a-radio-button>
-          <a-radio-button value="waiting">等待中</a-radio-button>
+          <a-radio-button value="processing">火热</a-radio-button>
+          <a-radio-button value="waiting">已关注</a-radio-button>
         </a-radio-group>
-        <a-input-search style="margin-left: 16px; width: 272px;" />
+        <a-input-search style="margin-left: 16px; width: 272px;"  @search="onSearch" />
       </div>
 
-      <div class="operate">
-        <a-button type="dashed" style="width: 100%" icon="plus" @click="add">添加</a-button>
-      </div>
+<!--      <div class="operate">-->
+<!--        <a-button type="dashed" style="width: 100%" icon="plus" @click="add">添加</a-button>-->
+<!--      </div>-->
 
-      <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}">
+      <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 10, total: 50}">
         <a-list-item :key="index" v-for="(item, index) in data">
           <a-list-item-meta :description="item.description">
             <a-avatar slot="avatar" size="large" shape="square" :src="item.avatar"/>
@@ -51,15 +37,16 @@
             </a-dropdown>
           </div>
           <div class="list-content">
+<!--            <div class="list-content-item">-->
+<!--              <span>Owner</span>-->
+<!--              <p>{{ item.owner }}</p>-->
+<!--            </div>-->
             <div class="list-content-item">
-              <span>Owner</span>
-              <p>{{ item.owner }}</p>
-            </div>
-            <div class="list-content-item">
-              <span>开始时间</span>
+              <span>兴起时间</span>
               <p>{{ item.startAt }}</p>
             </div>
             <div class="list-content-item">
+              <p>转化率</p>
               <a-progress :percent="item.progress.value" :status="!item.progress.status ? null : item.progress.status" style="width: 180px" />
             </div>
           </div>
@@ -76,7 +63,7 @@ import Info from './components/Info'
 
 const data = []
 data.push({
-  title: 'Alipay',
+  title: 'JK制服',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
   description: '那是一种内在的东西， 他们到达不了，也无法触及的',
   owner: '付晓晓',
@@ -86,7 +73,7 @@ data.push({
   }
 })
 data.push({
-  title: 'Angular',
+  title: '鬼畜',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
   description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
   owner: '曲丽丽',
@@ -96,7 +83,7 @@ data.push({
   }
 })
 data.push({
-  title: 'Ant Design',
+  title: '滑板',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
   description: '生命就像一盒巧克力，结果往往出人意料',
   owner: '林东东',
@@ -106,7 +93,7 @@ data.push({
   }
 })
 data.push({
-  title: 'Ant Design Pro',
+  title: '手账',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
   description: '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
   owner: '周星星',
@@ -116,7 +103,7 @@ data.push({
   }
 })
 data.push({
-  title: 'Bootstrap',
+  title: 'DIY手作',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
   description: '那时候我只会想自己想要什么，从不想自己拥有什么',
   owner: '吴加好',
@@ -140,6 +127,10 @@ export default {
     }
   },
   methods: {
+    //搜索
+    onSearch(value){
+      console.log(value)
+    },
     add () {
       this.$dialog(TaskForm,
         // component props
