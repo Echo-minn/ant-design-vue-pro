@@ -7,6 +7,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store/'
 import Antd from 'ant-design-vue/es'
+import echarts from 'echarts'
 import 'ant-design-vue/dist/antd.css'
 import i18n from './locales'
 import { VueAxios } from './utils/request'
@@ -32,6 +33,8 @@ Vue.use(Antd)
 Vue.component('pro-layout', ProLayout)
 Vue.component('page-container', PageHeaderWrapper)
 Vue.component('page-header-wrapper', PageHeaderWrapper)
+//这种方法是直接绑定在vue实例上，所以在项目中任何页面，直接 this.$echarts 即可
+Vue.prototype.$echarts = echarts
 
 window.umi_plugin_ant_themeVar = themePluginConfig.theme
 
