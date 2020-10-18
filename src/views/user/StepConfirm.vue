@@ -21,8 +21,8 @@
           </a-row>
         </div>
         <template #extra>
-          <a-button type="primary" @click="finish">再转一笔</a-button>
-          <a-button style="margin-left: 8px" @click="toOrderList">查看账单</a-button>
+          <a-button type="primary" @click="finish">登录</a-button>
+          <a-button style="margin-left: 8px" @click="toOrderList">查看个人信息</a-button>
         </template>
       </a-result>
     </a-form>
@@ -42,6 +42,7 @@ export default {
       this.$emit('finish')
     },
     toOrderList () {
+      //修改为查看个人信息
       this.$router.push('/list/table-list')
     }
   }

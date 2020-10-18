@@ -1,19 +1,22 @@
 <template>
   <div>
-    <a-form :form="form" style="max-width: 500px; margin: 40px auto 0;">
+    <a-form :form="form" style="max-width: 500px; margin: 40px auto 0;" @submit="handleSubmit">
       <a-form-item
-        label="付款账户"
+        label="您的身份"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
         <a-select
-          placeholder="ant-design@alipay.com"
-          v-decorator="['paymentUser', { rules: [{required: true, message: '付款账户必须填写'}] }]">
-          <a-select-option value="1">ant-design@alipay.com</a-select-option>
+          placeholder=""
+          v-decorator="['userIdentity', { rules: [{required: true, message: '身份必须选择'}] }]"
+          @change="handleUserIdentityChange">
+          <a-select-option value="1">企业法人</a-select-option>
+          <a-select-option value="2">个体职业者</a-select-option>
         </a-select>
       </a-form-item>
       <a-form-item
-        label="收款账户"
+        v-show="userIdentity==='1'"
+        label="企业类型"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
@@ -21,25 +24,45 @@
           style="display: inline-block; vertical-align: middle"
           :compact="true"
         >
-          <a-select defaultValue="alipay" style="width: 100px">
-            <a-select-option value="alipay">支付宝</a-select-option>
-            <a-select-option value="wexinpay">微信</a-select-option>
+          <a-select defaultValue="clothes" style="width: 100px">
+            <a-select-option value="clothes">服饰类</a-select-option>
+            <a-select-option value="food">食品类</a-select-option>
+            <a-select-option value="culture">文创类</a-select-option>
+            <a-select-option value="video">影视类</a-select-option>
           </a-select>
           <a-input
             :style="{width: 'calc(100% - 100px)'}"
-            v-decorator="['payType', { initialValue: 'test@example.com', rules: [{required: true, message: '收款账户必须填写'}]}]"
+            v-decorator="['payType', { initialValue: '企业名称', rules: [{required: false, message: '请填写您的企业名称'}]}]"
           />
         </a-input-group>
       </a-form-item>
       <a-form-item
-        label="收款人姓名"
+        v-show="userIdentity==='2'"
+        label="您的职业"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input v-decorator="['name', { initialValue: 'Alex', rules: [{required: true, message: '收款人名称必须核对'}] }]"/>
+        <a-select
+          placeholder=""
+          v-decorator="['profession', { rules: [{required: false, message: '职业必须选择'}] }]"
+          @change="handleProfessionChange">
+          <a-select-option value="1">厨师</a-select-option>
+          <a-select-option value="2">音乐人</a-select-option>
+          <a-select-option value="3">警察</a-select-option>
+          <a-select-option value="4">学生</a-select-option>
+          <a-select-option value="5">老师</a-select-option>
+          <a-select-option value="6">建筑师</a-select-option>
+        </a-select>
       </a-form-item>
       <a-form-item
-        label="转账金额"
+        label="真实姓名"
+        :labelCol="labelCol"
+        :wrapperCol="wrapperCol"
+      >
+        <a-input v-decorator="['name', { initialValue: '李四', rules: [{required: true, message: '姓名必须核对'}] }]"/>
+      </a-form-item>
+      <a-form-item
+        label="月交易额"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
@@ -65,11 +88,13 @@ export default {
     return {
       labelCol: { lg: { span: 5 }, sm: { span: 5 } },
       wrapperCol: { lg: { span: 19 }, sm: { span: 19 } },
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      userIdentity: '0'
     }
   },
   methods: {
     nextStep () {
+      // this.$emit('nextStep')
       const { form: { validateFields } } = this
       // 先校验，通过表单校验后，才进入下一步
       validateFields((err, values) => {
@@ -77,6 +102,22 @@ export default {
           this.$emit('nextStep')
         }
       })
+    },
+    handleSubmit (e) {
+      console.log(e)
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+        }
+      });
+    },
+    handleUserIdentityChange (value) {
+      this.userIdentity = value
+      console.log(this.userIdentity)
+    },
+    handleProfessionChange () {
+
     }
   }
 }

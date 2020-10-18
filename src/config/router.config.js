@@ -16,6 +16,22 @@ export const asyncRouterMap = [
     meta: { title: 'menu.home' },
     redirect: '/dashboard/workplace',
     children: [
+      //home
+      // {
+      //   path: '/home',
+      //   name: 'home',
+      //   redirect: '/home/home',
+      //   component: RouteView,
+      //   meta: {title: '首页', keepAlive: true, icon: bxAnaalyse, permission: ['home'] },
+      //   children: [
+      //     {
+      //       path: '/home/home',
+      //       name: '首页',
+      //       component: () => import('@/views/home/Home'),
+      //       meta: { title: '首页', keepAlive: true, permission: [ 'home' ]}
+      //     }
+      //   ]
+      // },
       // dashboard
       {
         path: '/dashboard',

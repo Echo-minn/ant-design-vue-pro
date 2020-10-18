@@ -2,7 +2,7 @@
   <a-card :bordered="false">
     <a-steps class="steps" :current="currentTab">
       <a-step title="填写注册信息" />
-      <a-step title="您的关注点" />
+      <a-step title="您的身份" />
       <a-step title="完成" />
     </a-steps>
     <div class="content">
@@ -46,7 +46,8 @@ export default {
       }
     },
     finish () {
-      this.currentTab = 0
+      // this.currentTab = 0
+      this.$router.replace('/user/login')
     }
   }
 }
