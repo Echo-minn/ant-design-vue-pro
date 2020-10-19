@@ -24,15 +24,16 @@
           style="display: inline-block; vertical-align: middle"
           :compact="true"
         >
-          <a-select defaultValue="clothes" style="width: 100px">
+          <a-select  defaultValue="clothes" style="width: 100px">
             <a-select-option value="clothes">服饰类</a-select-option>
             <a-select-option value="food">食品类</a-select-option>
             <a-select-option value="culture">文创类</a-select-option>
             <a-select-option value="video">影视类</a-select-option>
           </a-select>
           <a-input
+            placeholder="企业名称"
             :style="{width: 'calc(100% - 100px)'}"
-            v-decorator="['payType', { initialValue: '企业名称', rules: [{required: false, message: '请填写您的企业名称'}]}]"
+            v-decorator="['payType', { initialValue: '', rules: [{required: false, message: '请填写您的企业名称'}]}]"
           />
         </a-input-group>
       </a-form-item>
@@ -59,24 +60,32 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input v-decorator="['name', { initialValue: '李四', rules: [{required: true, message: '姓名必须核对'}] }]"/>
+        <a-input placeholder="李四" v-decorator="['name', { initialValue: '', rules: [{required: true, message: '姓名必须核对'}] }]"/>
       </a-form-item>
       <a-form-item
         label="月交易额"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input prefix="￥" v-decorator="['momey', { initialValue: '5000', rules: [{required: true, message: '转账金额必须填写'}] }]"/>
+        <a-input placeholder="5000" prefix="￥" v-decorator="['momey', { initialValue: '', rules: [{required: true, message: '转账金额必须填写'}] }]"/>
       </a-form-item>
-      <a-form-item :wrapperCol="{span: 19, offset: 5}">
-        <a-button type="primary" @click="nextStep">下一步</a-button>
+      <a-form-item>
+        <div style="position: relative">
+          <a-button type="primary">
+            返回　
+          </a-button>
+          <a-button class="next-step" type="primary" @click="nextStep">下一步</a-button>
+        </div>
       </a-form-item>
     </a-form>
+
+
+
     <a-divider />
     <div class="step-form-style-desc">
       <h3>说明</h3>
-      <h4>选择您关注的兴趣点</h4>
-      <p>如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。</p>
+      <h4>选择您的身份信息</h4>
+      <p>作为独立个体还是企业代表？</p>
     </div>
   </div>
 </template>
@@ -147,5 +156,12 @@ export default {
     margin-bottom: 12px;
     line-height: 22px;
   }
+}
+</style>
+<style>
+.next-step{
+  position: absolute !important;
+  right: 0;
+  bottom: 0;
 }
 </style>

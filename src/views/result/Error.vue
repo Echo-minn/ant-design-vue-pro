@@ -170,11 +170,11 @@
           </div>
           <div class="list-content">
             <div class="list-content-item">
-              <span>Owner</span>
+              <span>主要受众</span>
               <p>{{ item.owner }}</p>
             </div>
             <div class="list-content-item">
-              <span>开始时间</span>
+              <span>兴起时间</span>
               <p>{{ item.startAt }}</p>
             </div>
             <div class="list-content-item">
@@ -307,10 +307,10 @@ const pieData = dv.rows
 
 const listData = []
 listData.push({
-  title: 'Alipay',
-  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-  description: '那是一种内在的东西， 他们到达不了，也无法触及的',
-  owner: '付晓晓',
+  title: 'JK制服',
+  avatar: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1603095098&di=a9803b6da67406b8dcd6a0d7b94e45d7&src=http://hbimg.b0.upaiyun.com/ed51586cb983a2dba9583abb5982f4e111b043e3c0a5a-wr93Ez_fw658',
+  description: '日本女高中生制服',
+  owner: '15-25岁女学生',
   startAt: '2018-07-26 22:44',
   progress: {
     value: 90

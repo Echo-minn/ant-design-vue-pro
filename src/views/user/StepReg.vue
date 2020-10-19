@@ -75,7 +75,14 @@
       </a-col>
     </a-row>
 
-    <a-form-item>
+    <div style="position: relative">
+      <a-button
+        size="large"
+        type="primary"
+        class="back-button"
+        :loading="registerBtn"
+        :disabled="registerBtn">返回
+      </a-button>
       <a-button
         size="large"
         type="primary"
@@ -85,7 +92,7 @@
         @click.stop.prevent="handleSubmit"
         :disabled="registerBtn">下一步
       </a-button>
-    </a-form-item>
+    </div>
 
   </a-form>
 </template>
@@ -266,6 +273,7 @@ export default {
   }
 }
 </script>
+
 <style lang="less">
 .user-register {
 
@@ -303,13 +311,20 @@ export default {
     height: 40px;
   }
 
-  .register-button {
-    width: 50%;
-  }
 
   .login {
     float: right;
     line-height: 40px;
   }
+}
+</style>
+<style scoped>
+.register-button {
+  position: absolute !important;
+  right: 0;
+  bottom: 0;
+}
+.back-button{
+
 }
 </style>
