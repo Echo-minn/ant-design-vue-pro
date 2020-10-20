@@ -4,8 +4,8 @@
       <a-input
         size="large"
         type="text"
-        placeholder="邮箱"
-        v-decorator="['email', {rules: [{ required: true, type: 'email', message: '请输入邮箱地址' }], validateTrigger: ['change', 'blur']}]"
+        placeholder="用户名"
+        v-decorator="[{rules: [{ required: true, type: 'email', message: '请输入用户昵称' }], validateTrigger: ['change', 'blur']}]"
       ></a-input>
     </a-form-item>
 
@@ -81,6 +81,7 @@
         type="primary"
         class="back-button"
         :loading="registerBtn"
+        @click="$router.go(-1)"
         :disabled="registerBtn">返回
       </a-button>
       <a-button
@@ -213,6 +214,7 @@ export default {
       const { form: { validateFields }, state } = this
       validateFields({ force: true }, (err) => {
         if (!err) {
+          // TODO 用户注册接口
           this.$emit('nextStep')
           state.passwordLevelChecked = false
           // $router.push({ name: 'registerResult', params: { ...values } })
