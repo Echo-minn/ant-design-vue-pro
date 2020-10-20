@@ -1,8 +1,8 @@
 <template>
-  <a-result status="500" title="500" sub-title="Sorry, the server is reporting an error.">
+  <a-result status="500" title="500" sub-title="抱歉，服务器好像出了点问题">
     <template #extra>
       <a-button type="primary" @click="toHome">
-        Back Home
+        返回首页
       </a-button>
     </template>
   </a-result>
