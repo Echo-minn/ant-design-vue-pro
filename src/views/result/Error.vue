@@ -23,37 +23,34 @@
                 </a-menu-item>
               </a-menu>
             </a-dropdown>
-            <a-row :gutter="68">
-              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
-<!--                total sub-total需要修改成对应的圈子内的数据-->
-                <number-info :total="12321" :sub-total="17.1">
-                  <span slot="subtitle">
-                    <span>搜索用户数</span>
-                    <a-tooltip title="指标说明" slot="action">
-                      <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />
-                    </a-tooltip>
-                  </span>
-                </number-info>
-                <!-- miniChart -->
-                <div>
-                  <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />
-                </div>
-              </a-col>
-              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
-                <number-info :total="2.7" :sub-total="26.2" status="down">
-                  <span slot="subtitle">
-                    <span>人均搜索次数</span>
-                    <a-tooltip title="指标说明" slot="action">
-                      <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />
-                    </a-tooltip>
-                  </span>
-                </number-info>
-                <!-- miniChart -->
-                <div>
-                  <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />
-                </div>
-              </a-col>
-            </a-row>
+<!--            <a-row :gutter="68">-->
+<!--              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">-->
+<!--                <number-info :total="12321" :sub-total="17.1">-->
+<!--                  <span slot="subtitle">-->
+<!--                    <span>搜索用户数</span>-->
+<!--                    <a-tooltip title="指标说明" slot="action">-->
+<!--                      <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />-->
+<!--                    </a-tooltip>-->
+<!--                  </span>-->
+<!--                </number-info>-->
+<!--                <div>-->
+<!--                  <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />-->
+<!--                </div>-->
+<!--              </a-col>-->
+<!--              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">-->
+<!--                <number-info :total="2.7" :sub-total="26.2" status="down">-->
+<!--                  <span slot="subtitle">-->
+<!--                    <span>人均搜索次数</span>-->
+<!--                    <a-tooltip title="指标说明" slot="action">-->
+<!--                      <a-icon type="info-circle-o" :style="{ marginLeft: '8px' }" />-->
+<!--                    </a-tooltip>-->
+<!--                  </span>-->
+<!--                </number-info>-->
+<!--                <div>-->
+<!--                  <mini-smooth-area :style="{ height: '45px' }" :dataSource="searchUserData" :scale="searchUserScale" />-->
+<!--                </div>-->
+<!--              </a-col>-->
+<!--            </a-row>-->
             <div class="ant-table-wrapper">
               <a-table
                 row-key="index"

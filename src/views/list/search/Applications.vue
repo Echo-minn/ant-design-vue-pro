@@ -2,19 +2,20 @@
   <div>
     <a-card :bordered="false" class="ant-pro-components-tag-select">
       <a-form :form="form" layout="inline">
-        <standard-form-row title="所属类目" block style="padding-bottom: 11px;">
+        <standard-form-row title="涉及圈子" block style="padding-bottom: 11px;">
           <a-form-item>
             <tag-select>
-              <tag-select-option value="Category1">类目一</tag-select-option>
-              <tag-select-option value="Category2">类目二</tag-select-option>
-              <tag-select-option value="Category3">类目三</tag-select-option>
-              <tag-select-option value="Category4">类目四</tag-select-option>
-              <tag-select-option value="Category5">类目五</tag-select-option>
-              <tag-select-option value="Category6">类目六</tag-select-option>
-              <tag-select-option value="Category7">类目七</tag-select-option>
-              <tag-select-option value="Category8">类目八</tag-select-option>
-              <tag-select-option value="Category9">类目九</tag-select-option>
-              <tag-select-option value="Category10">类目十</tag-select-option>
+              <tag-select-option value="Category1">JK服饰</tag-select-option>
+              <tag-select-option value="Category2">Lolita裙子</tag-select-option>
+              <tag-select-option value="Category3">汉服</tag-select-option>
+              <tag-select-option value="Category4">美食制作</tag-select-option>
+              <tag-select-option value="Category5">轮滑</tag-select-option>
+              <tag-select-option value="Category6">滑板</tag-select-option>
+              <tag-select-option value="Category7">手账</tag-select-option>
+              <tag-select-option value="Category8">国漫</tag-select-option>
+              <tag-select-option value="Category9">鬼畜视频</tag-select-option>
+              <tag-select-option value="Category10">手工DIY</tag-select-option>
+              <tag-select-option value="Category10">宅舞</tag-select-option>
             </tag-select>
           </a-form-item>
         </standard-form-row>
@@ -22,7 +23,7 @@
         <standard-form-row title="其它选项" grid last>
           <a-row>
             <a-col :lg="8" :md="10" :sm="10" :xs="24">
-              <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="作者">
+              <a-form-item :wrapper-col="{ sm: { span: 16 }, xs: { span: 24 } }" label="名称">
                 <a-select
                   style="max-width: 200px; width: 100%;"
                   mode="multiple"
@@ -51,59 +52,56 @@
       </a-form>
     </a-card>
 
-    <div class="ant-pro-pages-list-applications-filterCardList">
-      <a-list :loading="loading" :data-source="data" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }" style="margin-top: 24px;">
+    <div class="ant-pro-pages-list-projects-cardList">
+      <a-list :loading="loading" :data-source="staticData" :grid="{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }">
         <a-list-item slot="renderItem" slot-scope="item">
-          <a-card :body-style="{ paddingBottom: 20 }" hoverable>
+          <a-card class="ant-pro-pages-list-projects-card" hoverable>
+
+            <img slot="cover" :src="item.cover" :alt="item.title" />
             <a-card-meta :title="item.title">
-              <template slot="avatar">
-                <a-avatar size="small" :src="item.avatar"/>
+
+              <template slot="description">
+                <ellipsis :length="50">{{ item.description }}</ellipsis>
               </template>
             </a-card-meta>
-            <template slot="actions">
-              <a-tooltip title="下载">
-                <a-icon type="download" />
-              </a-tooltip>
-              <a-tooltip title="编辑">
-                <a-icon type="edit" />
-              </a-tooltip>
-              <a-tooltip title="分享">
-                <a-icon type="share-alt" />
-              </a-tooltip>
-              <a-dropdown>
-                <a class="ant-dropdown-link">
-                  <a-icon type="ellipsis" />
-                </a>
-                <a-menu slot="overlay">
-                  <a-menu-item>
-                    <a href="javascript:;">1st menu item</a>
-                  </a-menu-item>
-                  <a-menu-item>
-                    <a href="javascript:;">2nd menu item</a>
-                  </a-menu-item>
-                  <a-menu-item>
-                    <a href="javascript:;">3rd menu item</a>
-                  </a-menu-item>
-                </a-menu>
-              </a-dropdown>
-            </template>
-            <div class="">
-              <card-info active-user="100" new-user="999"></card-info>
+            <div class="cardItemContent">
+              <span>{{ item.updatedAt | fromNow }}</span>
+              <div class="avatarList">
+                <icon-text type="fund" text="播放量提升:120%" />
+              </div>
             </div>
           </a-card>
         </a-list-item>
       </a-list>
     </div>
   </div>
+
 </template>
 
 <script>
 import moment from 'moment'
 import { TagSelect, StandardFormRow, Ellipsis, AvatarList } from '@/components'
 import CardInfo from './components/CardInfo'
+import IconText from './components/IconText'
 const TagSelectOption = TagSelect.Option
 const AvatarListItem = AvatarList.AvatarItem
+const staticData = [
+  {
+    id: '1',
+    cover: "https://s1.ax1x.com/2020/10/25/BmdfCn.jpg",
+    title: '肯德基LPL广告',
+    description: '肯德基于2018年携手英雄联盟全球总决赛这一顶尖赛事，为中国战队加油。2019年在LPL的舞台上，肯德基将与英雄联盟继续合作，进一步与年轻人深入沟通，持续展现创意十足、激情无限的品牌精神。炸鸡在手，胜利拿走，和肯德基一起品尝胜利滋味，再辟新章!',
+    updatedAt: '2018',
+  },
+  {
+    id: '2',
+    cover: "https://s1.ax1x.com/2020/10/25/BmQQpQ.jpg",
+    title: 'Vans Skate Fry-Days',
+    description: '爽的空调，美味的炸鸡，冰镇啤酒和饮料，加上可以拿到现金奖励的Stoop道具，斜面和弧面的三个小比赛，以及丰富的Vans礼品，滑手们需要做的就是畅快的滑板，痛饮啤酒和大嚼炸鸡，彻底把这个周末点燃! ',
+    updatedAt: '2017'
+  }
 
+]
 export default {
   components: {
     AvatarList,
@@ -112,11 +110,13 @@ export default {
     TagSelect,
     TagSelectOption,
     StandardFormRow,
-    CardInfo
+    CardInfo,
+    IconText
   },
   data () {
     return {
       data: [],
+      staticData,
       form: this.$form.createForm(this),
       loading: true
     }

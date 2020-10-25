@@ -197,8 +197,8 @@ export const asyncRouterMap = [
           },
           {
             path: '/invest/search/copyright',
-            name: 'Copyright',
-            component: () => import('../views/list/search/Applications'),
+            name: 'CopyRight',
+            component: () => import('../views/list/search/Copyright'),
             meta: { title: '版权购买', permission: [ 'table' ] }
           }
         ]

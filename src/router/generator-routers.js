@@ -37,6 +37,7 @@ const constantRouterComponents = {
   'SearchApplications': () => import('@/views/list/search/Applications'),
   'ProfileBasic': () => import('@/views/profile/basic'),
   'ProfileAdvanced': () => import('@/views/profile/advanced/Advanced'),
+  'CopyRight': ()=> import('@/views/list/search/Copyright'),
 
   // result
   'ResultSuccess': () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
