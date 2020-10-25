@@ -46,6 +46,7 @@ const constantRouterComponents = {
   'Exception403': () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
   'Exception404': () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
   'Exception500': () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
+  'InvestAdvice': () => import(/* webpackChunkName: "fail" */ '@/views/exception/InvestAdvice'),
 
   // account
   'AccountCenter': () => import('@/views/account/center'),

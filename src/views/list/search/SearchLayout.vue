@@ -6,7 +6,7 @@
   >
     <template v-slot:content>
       <div class="ant-pro-page-header-search">
-        <a-input-search size="large" style="width: 80%; max-width: 522px;">
+        <a-input-search size="large" icon="search" style="width: 80%; max-width: 522px;">
           <template v-slot:enterButton>
             搜索
           </template>
@@ -20,12 +20,14 @@
 <script>
 const getActiveKey = (path) => {
   switch (path) {
-    case '/list/search/article':
+    case '/invest/search/jointname':
       return '1'
-    case '/list/search/project':
+    case '/invest/search/sponsor':
       return '2'
-    case '/list/search/application':
+    case '/invest/search/adver':
       return '3'
+    case '/invest/search/copyright':
+      return '4'
     default:
       return '1'
   }
@@ -35,9 +37,10 @@ export default {
   data () {
     return {
       tabList: [
-        { key: '1', tab: '文章' },
-        { key: '2', tab: '项目' },
-        { key: '3', tab: '应用' }
+        { key: '1', tab: '联名' },
+        { key: '2', tab: '赞助引流' },
+        { key: '3', tab: '广告合作' },
+        { key: '4', tab: '版权购买' }
       ],
       tabActiveKey: '1',
       search: true
@@ -55,13 +58,16 @@ export default {
       this.tabActiveKey = key
       switch (key) {
         case '1':
-          this.$router.push('/list/search/article')
+          this.$router.push('/invest/search/jointname')
           break
         case '2':
-          this.$router.push('/list/search/project')
+          this.$router.push('/invest/search/sponsor')
           break
         case '3':
-          this.$router.push('/list/search/application')
+          this.$router.push('/invest/search/adver')
+          break
+        case '4':
+          this.$router.push('/invest/search/copyright')
           break
         default:
           this.$router.push('/workplace')
