@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <page-header-wrapper>
     <div class="antd-pro-pages-dashboard-analysis-twoColLayout" :class="!isMobile && 'desktop'">
       <a-row :gutter="24" type="flex" :style="{ marginTop: '24px' }">
         <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
@@ -56,7 +56,7 @@
         </a-col>
       </a-row>
     </div>
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>

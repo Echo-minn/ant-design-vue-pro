@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <page-header-wrapper>
     <a-carousel autoplay >
       <div  v-for="url in urls">
         <img  class="center-content" :src="url" />
@@ -185,7 +185,7 @@
       </a-list>
     </a-card>
 
-  </div>
+  </page-header-wrapper>
 </template>
 
 <script>

@@ -2,31 +2,15 @@
   <div>
     <a-card :bordered="false" class="ant-pro-components-tag-select">
       <a-form :form="form" layout="inline">
-        <standard-form-row title="所属类目" block style="padding-bottom: 11px;">
-          <a-form-item>
-            <tag-select>
-              <tag-select-option value="Category1">类目一</tag-select-option>
-              <tag-select-option value="Category2">类目二</tag-select-option>
-              <tag-select-option value="Category3">类目三</tag-select-option>
-              <tag-select-option value="Category4">类目四</tag-select-option>
-              <tag-select-option value="Category5">类目五</tag-select-option>
-              <tag-select-option value="Category6">类目六</tag-select-option>
-              <tag-select-option value="Category7">类目七</tag-select-option>
-              <tag-select-option value="Category8">类目八</tag-select-option>
-              <tag-select-option value="Category9">类目九</tag-select-option>
-              <tag-select-option value="Category10">类目十</tag-select-option>
-            </tag-select>
-          </a-form-item>
-        </standard-form-row>
 
-        <standard-form-row title="owner" grid>
+        <standard-form-row title="适用的文化圈子" grid>
           <a-row>
             <a-col :md="24">
               <a-form-item :wrapper-col="{ span: 24 }">
                 <a-select
                   style="max-width: 268px; width: 100%;"
                   mode="multiple"
-                  placeholder="选择 onwer"
+                  placeholder="选择 圈子"
                   v-decorator="['owner']"
                   @change="handleChange"
                 >
@@ -38,21 +22,10 @@
           </a-row>
         </standard-form-row>
 
-        <standard-form-row title="其它选项" grid last>
-          <a-row :gutter="16">
-            <a-col :xs="24" :sm="24" :md="12" :lg="10" :xl="8">
-              <a-form-item label="活跃用户" :wrapper-col="{ xs: 24, sm: 24, md: 12 }">
-                <a-select placeholder="不限" style="max-width: 200px; width: 100%;">
-                  <a-select-option value="李三">李三</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :xs="24" :sm="24" :md="12" :lg="10" :xl="8">
-              <a-form-item label="好评度" :wrapper-col="{ xs: 24, sm: 24, md: 12 }">
-                <a-select placeholder="不限" style="max-width: 200px; width: 100%;">
-                  <a-select-option value="优秀">优秀</a-select-option>
-                </a-select>
-              </a-form-item>
+        <standard-form-row title="投资方式" grid last>
+          <a-row>
+            <a-col :md="24">
+              <a-input :wrapper-col="{ span: 24 }" placeholder="联合商家创意点推出联名产品"></a-input>
             </a-col>
           </a-row>
         </standard-form-row>
@@ -100,24 +73,32 @@ const TagSelectOption = TagSelect.Option
 
 const owners = [
   {
-    id: 'wzj',
-    name: '我自己'
+    id: 'jk',
+    name: 'JK制服'
   },
   {
-    id: 'wjh',
-    name: '吴家豪'
+    id: 'hf',
+    name: '汉服'
   },
   {
-    id: 'zxx',
-    name: '周星星'
+    id: 'hb',
+    name: '滑板'
   },
   {
-    id: 'zly',
-    name: '赵丽颖'
+    id: 'dzjj',
+    name: '电子竞技'
   },
   {
-    id: 'ym',
-    name: '姚明'
+    id: 'gm',
+    name: '国漫'
+  },
+  {
+    id: 'zw',
+    name: '宅舞'
+  },
+  {
+    id: 'gd',
+    name: '高达'
   }
 ]
 
