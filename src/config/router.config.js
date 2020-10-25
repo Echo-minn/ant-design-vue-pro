@@ -33,11 +33,11 @@ export const asyncRouterMap = [
             path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
             name: 'Analysis',
             component: () => import('@/views/dashboard/Analysis'),
-            meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: [ 'dashboard' ] }
+            meta: { title: '数据分析', keepAlive: false, permission: [ 'dashboard' ] }
           },
           {
             path: '/result/fail',
-            name: 'Workplace',
+            name: '工作台',
             component: () => import('@/views/dashboard/Workplace'),
             meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: [ 'dashboard' ] }
           }
@@ -169,34 +169,69 @@ export const asyncRouterMap = [
         ]
       },
 
-      // Exception
+      // investment
       {
-        path: '/exception',
-        name: 'exception',
-        component: RouteView,
-        redirect: '/exception/403',
-        meta: { title: '投资渠道', icon: 'warning', permission: [ 'exception' ] },
+        path: '/invest/search',
+        name: 'SearchList',
+        component: () => import('@/views/list/search/SearchLayout'),
+        redirect: '/invest/search/article',
+        meta: { title: '投资渠道',icon:'warning', keepAlive: true, permission: [ 'table' ] },
         children: [
           {
-            path: '/exception/403',
-            name: 'Exception403',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
-            meta: { title: '403', permission: [ 'exception' ] }
+            path: '/invest/search/jointname',
+            name: 'JointName',
+            component: () => import('../views/list/search/Article'),
+            meta: { title: '联名', permission: [ 'table' ] }
           },
           {
-            path: '/exception/404',
-            name: 'Exception404',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
-            meta: { title: '404', permission: [ 'exception' ] }
+            path: '/invest/search/sponsor',
+            name: 'Sponsor',
+            component: () => import('../views/list/search/Projects'),
+            meta: { title: '赞助引流', permission: [ 'table' ] }
           },
           {
-            path: '/exception/500',
-            name: 'Exception500',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
-            meta: { title: '500', permission: [ 'exception' ] }
+            path: '/invest/search/adver',
+            name: 'Advertise',
+            component: () => import('../views/list/search/Applications'),
+            meta: { title: '广告合作', permission: [ 'table' ] }
+          },
+          {
+            path: '/invest/search/copyright',
+            name: 'Copyright',
+            component: () => import('../views/list/search/Applications'),
+            meta: { title: '版权购买', permission: [ 'table' ] }
           }
         ]
       },
+
+      // Exception
+      // {
+      //   path: '/exception',
+      //   name: 'exception',
+      //   component: RouteView,
+      //   redirect: '/exception/403',
+      //   meta: { title: '投资渠道', icon: 'warning', permission: [ 'exception' ] },
+      //   children: [
+      //     {
+      //       path: '/exception/403',
+      //       name: 'Exception403',
+      //       component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
+      //       meta: { title: '403', permission: [ 'exception' ] }
+      //     },
+      //     {
+      //       path: '/exception/404',
+      //       name: 'Exception404',
+      //       component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
+      //       meta: { title: '404', permission: [ 'exception' ] }
+      //     },
+      //     {
+      //       path: '/exception/500',
+      //       name: 'Exception500',
+      //       component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
+      //       meta: { title: '500', permission: [ 'exception' ] }
+      //     }
+      //   ]
+      // },
 
       // account
       {
