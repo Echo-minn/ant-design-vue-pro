@@ -204,6 +204,23 @@ export const asyncRouterMap = [
         ]
       },
 
+      // report
+      {
+        path: '/report',
+        name: 'report',
+        component: RouteView,
+        redirect: '/report/research-report',
+        meta: { title: '研究报告', icon: 'form', permission: [ 'table' ] },
+        children: [
+          {
+            path: '/report/research-report',
+            name: 'ResearchReport',
+            component: () => import('@/views/reports/ResearchReport'),
+            meta: { title: '研究报告', keepAlive: true, permission: [ 'table' ] }
+          },
+        ]
+      },
+
       // Exception
       // {
       //   path: '/exception',
