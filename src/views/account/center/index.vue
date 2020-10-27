@@ -12,10 +12,10 @@
           </div>
           <div class="account-center-detail">
             <p>
-              <i class="title"></i>交互专家
+              <i class="title"></i>个体经营
             </p>
             <p>
-              <i class="group"></i>蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED
+              <i class="group"></i>服装店
             </p>
             <p>
               <i class="address"></i>
@@ -122,11 +122,11 @@ export default {
       tabListNoTitle: [
         {
           key: 'article',
-          tab: '文章(8)'
+          tab: '我的关注(8)'
         },
         {
           key: 'app',
-          tab: '应用(8)'
+          tab: '推荐(8)'
         },
         {
           key: 'project',

@@ -86,8 +86,9 @@
                   </a-menu>
                 </a-dropdown>
               </span>
+
               <div class="analysis-salesTypeRadio">
-                <a-radio-group defaultValue="a">
+                <a-radio-group :defaultValue="radioValue" @change="radioOnchange">
                   <a-radio-button value="a">全部渠道</a-radio-button>
                   <a-radio-button value="b">线上</a-radio-button>
                   <a-radio-button value="c">门店</a-radio-button>
@@ -99,7 +100,24 @@
             <div>
               <!-- style="width: calc(100% - 240px);" -->
               <div>
-                <v-chart :force-fit="true" :height="405" :data="pieData" :scale="pieScale">
+<!--                现在是静态数据，所以写了三遍这个表格，实际上只需要修改data即可-->
+                <v-chart :force-fit="true" :height="405" :data="pieData" :scale="pieScale" v-if="radioValue=='a'">
+                  <v-tooltip :showTitle="false" dataKey="item*percent" />
+                  <v-axis />
+                  <!-- position="right" :offsetX="-140" -->
+                  <v-legend dataKey="item"/>
+                  <v-pie position="percent" color="item" :vStyle="pieStyle" />
+                  <v-coord type="theta" :radius="0.75" :innerRadius="0.6" />
+                </v-chart>
+                <v-chart :force-fit="true" :height="405" :data="pieData2" :scale="pieScale" v-if="radioValue=='b'">
+                  <v-tooltip :showTitle="false" dataKey="item*percent" />
+                  <v-axis />
+                  <!-- position="right" :offsetX="-140" -->
+                  <v-legend dataKey="item"/>
+                  <v-pie position="percent" color="item" :vStyle="pieStyle" />
+                  <v-coord type="theta" :radius="0.75" :innerRadius="0.6" />
+                </v-chart>
+                <v-chart :force-fit="true" :height="405" :data="pieData3" :scale="pieScale" v-if="radioValue=='c'">
                   <v-tooltip :showTitle="false" dataKey="item*percent" />
                   <v-axis />
                   <!-- position="right" :offsetX="-140" -->
@@ -137,15 +155,15 @@
       <div slot="extra">
         <a-radio-group v-model="status">
           <a-radio-button value="all">全部</a-radio-button>
-          <a-radio-button value="processing">进行中</a-radio-button>
-          <a-radio-button value="waiting">等待中</a-radio-button>
+          <a-radio-button value="processing">我的关注</a-radio-button>
+<!--          <a-radio-button value="waiting">等待中</a-radio-button>-->
         </a-radio-group>
         <a-input-search style="margin-left: 16px; width: 272px;" />
       </div>
 
-      <div class="operate">
-        <a-button type="dashed" style="width: 100%" icon="plus" @click="addList">添加</a-button>
-      </div>
+<!--      <div class="operate">-->
+<!--        <a-button type="dashed" style="width: 100%" icon="plus" @click="addList">添加</a-button>-->
+<!--      </div>-->
 
       <a-list size="large" :pagination="{showSizeChanger: true, showQuickJumper: true, pageSize: 5, total: 50}">
         <a-list-item :key="index" v-for="(item, index) in listData">
@@ -154,17 +172,17 @@
             <a slot="title">{{ item.title }}</a>
           </a-list-item-meta>
           <div slot="actions">
-            <a @click="editList(item)">编辑</a>
+            <a @click="check(item)">查看</a>
           </div>
-          <div slot="actions">
-            <a-dropdown>
-              <a-menu slot="overlay">
-                <a-menu-item><a>编辑</a></a-menu-item>
-                <a-menu-item><a>删除</a></a-menu-item>
-              </a-menu>
-              <a>更多<a-icon type="down"/></a>
-            </a-dropdown>
-          </div>
+<!--          <div slot="actions">-->
+<!--            <a-dropdown>-->
+<!--              <a-menu slot="overlay">-->
+<!--                <a-menu-item><a>编辑</a></a-menu-item>-->
+<!--                <a-menu-item><a>删除</a></a-menu-item>-->
+<!--              </a-menu>-->
+<!--              <a>更多<a-icon type="down"/></a>-->
+<!--            </a-dropdown>-->
+<!--          </div>-->
           <div class="list-content">
             <div class="list-content-item">
               <span>主要受众</span>
@@ -266,15 +284,21 @@ const searchTableColumns = [
   }
 ]
 const searchData = []
-for (let i = 0; i < 50; i += 1) {
+for (let i = 0; i < 20; i += 1) {
   searchData.push({
     index: i + 1,
-    keyword: `文化圈-${i}`,
+    keyword: ``,
     count: Math.floor(Math.random() * 1000),
     range: Math.floor(Math.random() * 100),
     status: Math.floor((Math.random() * 10) % 2)
   })
 }
+searchData[0].keyword='JK'
+searchData[1].keyword='鬼畜'
+searchData[2].keyword='滑板'
+searchData[3].keyword='手账'
+searchData[4].keyword='DIY手作'
+searchData[5].keyword='美食制作'
 
 const DataSet = require('@antv/data-set')
 
@@ -286,7 +310,22 @@ const sourceData = [
   { item: '说唱', count: 9 },
   { item: '其他', count: 7.8 }
 ]
-
+const sourceData2 = [
+  { item: 'JK制服', count: 40 },
+  { item: 'DIY产品', count: 60 },
+  { item: '滑板', count: 0 },
+  { item: '鬼畜', count: 0 },
+  { item: '说唱', count: 0 },
+  { item: '其他', count: 0 }
+]
+const sourceData3 = [
+  { item: 'JK制服', count: 0 },
+  { item: 'DIY产品', count: 0 },
+  { item: '滑板', count: 100 },
+  { item: '鬼畜', count: 0 },
+  { item: '说唱', count: 0 },
+  { item: '其他', count: 0 }
+]
 const pieScale = [{
   dataKey: 'percent',
   min: 0,
@@ -294,13 +333,31 @@ const pieScale = [{
 }]
 
 const dv = new DataSet.View().source(sourceData)
+const dv2 = new DataSet.View().source(sourceData2)
+const dv3 = new DataSet.View().source(sourceData3)
+
 dv.transform({
   type: 'percent',
   field: 'count',
   dimension: 'item',
   as: 'percent'
 })
+dv2.transform({
+  type: 'percent',
+  field: 'count',
+  dimension: 'item',
+  as: 'percent'
+})
+dv3.transform({
+  type: 'percent',
+  field: 'count',
+  dimension: 'item',
+  as: 'percent'
+})
 const pieData = dv.rows
+const pieData2 = dv2.rows
+const pieData3 = dv3.rows
+
 
 const listData = []
 listData.push({
@@ -393,9 +450,15 @@ export default {
       barData2,
 
       //
+      radioValue:'a',
       pieScale,
       pieData,
+      pieData2,
+      pieData3,
       sourceData,
+      sourceData2,
+      sourceData3,
+
       pieStyle: {
         stroke: '#fff',
         lineWidth: 1
@@ -405,6 +468,12 @@ export default {
     }
   },
   methods:{
+    //复选框改变
+    radioOnchange(e)
+    {
+    this.radioValue=e.target.value;
+    console.log(this.radioValue)
+    },
     // Echarts 的 resize 方法
     resizeHandler() {
       this.chart.resize()
@@ -438,32 +507,33 @@ export default {
           maskClosable: false
         })
     },
-    editList (record) {
-      console.log('record', record)
-      this.$dialog(TaskForm,
-        // component props
-        {
-          record,
-          on: {
-            ok () {
-              console.log('ok 回调')
-            },
-            cancel () {
-              console.log('cancel 回调')
-            },
-            close () {
-              console.log('modal close 回调')
-            }
-          }
-        },
-        // modal props
-        {
-          title: '操作',
-          width: 700,
-          centered: true,
-          maskClosable: false
-        })
+    check (record) {
+      console.log(record)
+      // this.$dialog(TaskForm,
+      //   // component props
+      //   {
+      //     record,
+      //     on: {
+      //       ok () {
+      //         console.log('ok 回调')
+      //       },
+      //       cancel () {
+      //         console.log('cancel 回调')
+      //       },
+      //       close () {
+      //         console.log('modal close 回调')
+      //       }
+      //     }
+      //   },
+      //   // modal props
+      //   {
+      //     title: '操作',
+      //     width: 700,
+      //     centered: true,
+      //     maskClosable: false
+      //   })
     },
+    //旭日图
     initEchart1()
     {
       // 以下三步即可完成echarts的初始化使用
@@ -490,20 +560,20 @@ export default {
       };
 
       const data = [{
-        name: '虚构',
+        name: '无实体',
         itemStyle: {
           color: colors[1]
         },
         children: [{
-          name: '小说',
+          name: '鬼畜',
           children: [{
             name: '5☆',
             children: [{
-              name: '疼'
+              name: '卢本伟'
             }, {
-              name: '慈悲'
+              name: '法海'
             }, {
-              name: '楼下的房客'
+              name: '马保国'
             }]
           }, {
             name: '4☆',
@@ -521,7 +591,7 @@ export default {
             }]
           }]
         }, {
-          name: '其他',
+          name: '说唱',
           children: [{
             name: '5☆',
             children: [{
@@ -542,28 +612,28 @@ export default {
           }]
         }]
       }, {
-        name: '非虚构',
+        name: '有实体',
         itemStyle: {
           color: colors[2]
         },
         children: [{
-          name: '设计',
+          name: '服饰',
           children: [{
             name: '5☆',
             children: [{
-              name: '无界面交互'
+              name: 'DK'
             }]
           }, {
             name: '4☆',
             children: [{
-              name: '数字绘图的光照与渲染技术'
+              name: 'JK'
             }, {
-              name: '日本建筑解剖书'
+              name: 'Lolita'
             }]
           }, {
             name: '3☆',
             children: [{
-              name: '奇幻世界艺术\n&RPG地图绘制讲座'
+              name: '汉服'
             }]
           }]
         }, {
@@ -804,12 +874,14 @@ export default {
       _this.chart.setOption(options)
       window.addEventListener('resize',_this.resizeHandler)
     },
+    //散点图
     initEchart2()
     {
       // 以下三步即可完成echarts的初始化使用
       // const myCharts = echarts.init(this.$refs.myCharts);
       const _this = this
       _this.chart2 = echarts.init(this.$refs.myCharts);
+      //红色圆点
       var dataBJ = [
         [1,55,9,56,0.46,18,6,"良"],
         [2,25,11,21,0.65,34,9,"优"],
@@ -843,7 +915,7 @@ export default {
         [30,52,24,60,1.03,50,21,"良"],
         [31,46,5,49,0.28,10,6,"优"]
       ];
-
+    //绿色圆点
       var dataGZ = [
         [1,26,37,27,1.163,27,13,"优"],
         [2,85,62,71,1.195,60,8,"良"],
@@ -877,7 +949,7 @@ export default {
         [30,106,116,188,3.628,101,16,"轻度污染"],
         [31,118,50,0,1.383,76,11,"轻度污染"]
       ];
-
+      //黄色圆点
       var dataSH = [
         [1,91,45,125,0.82,34,23,"良"],
         [2,65,27,78,0.86,45,29,"良"],
@@ -911,7 +983,7 @@ export default {
         [30,174,131,174,1.55,108,50,"中度污染"],
         [31,187,143,201,1.39,89,53,"中度污染"]
       ];
-
+      //鼠标移上去后出现的提示框
       var schema = [
         {name: 'date', index: 0, text: '日'},
         {name: 'AQIindex', index: 1, text: 'AQI指数'},
@@ -931,6 +1003,7 @@ export default {
         shadowColor: 'rgba(0, 0, 0, 0.5)'
       };
 
+      //xy轴
       const option = {
         backgroundColor: '#404a59',
         color: [
@@ -1102,7 +1175,8 @@ export default {
   this.initEchart1()
   this.initEchart2()
   },
-  beforeDestroy() { // 清理工作 避免内存泄漏
+  beforeDestroy() {
+    // 清理工作 避免内存泄漏
     // 销毁监听事件
     window.removeEventListener('resize', this.resizeHandler)
     // 销毁 Echarts 实例

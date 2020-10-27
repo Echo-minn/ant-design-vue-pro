@@ -3,25 +3,25 @@
     <a-row :gutter="24">
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="总销售额" total="￥126,560">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip title="该文化圈的总销售额" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
             <trend flag="up" style="margin-right: 16px;">
-              <span slot="term">周同比</span>
+              <span slot="term">月同比</span>
               12%
             </trend>
             <trend flag="down">
-              <span slot="term">日同比</span>
+              <span slot="term">周同比</span>
               11%
             </trend>
           </div>
-          <template slot="footer">日均销售额<span>￥ 234.56</span></template>
+          <template slot="footer">月均销售额<span>￥ 23224.56</span></template>
         </chart-card>
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="访问量" :total="8846 | NumberFormat">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip title="该文化圈在网络上的传播热度" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -32,18 +32,18 @@
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
         <chart-card :loading="loading" title="支付笔数" :total="6560 | NumberFormat">
-          <a-tooltip title="指标说明" slot="action">
+          <a-tooltip title="电商交易平台支付笔数" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
             <mini-bar />
           </div>
-          <template slot="footer">转化率 <span>60%</span></template>
+<!--          <template slot="footer">转化率 <span>60%</span></template>-->
         </chart-card>
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card :loading="loading" title="运营活动效果" total="78%">
-          <a-tooltip title="指标说明" slot="action">
+        <chart-card :loading="loading" title="转化率" total="78%">
+          <a-tooltip title="转换率的介绍" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
           <div>
@@ -91,7 +91,7 @@
                 <bar :data="barData2" title="销售额趋势" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list title="门店销售排行榜" :list="rankList"/>
+                <rank-list title="店面销售排行榜" :list="rankList"/>
               </a-col>
             </a-row>
           </a-tab-pane>
@@ -246,6 +246,13 @@ for (let i = 0; i < 7; i++) {
     total: 1234.56 - i * 100
   })
 }
+rankList[0].name='小溪水'
+rankList[1].name='daruma达摩制霸'
+rankList[2].name='LASSPOP日本'
+rankList[3].name='Swallowjk燕子家'
+rankList[4].name='why君'
+rankList[5].name='忘川琉璃'
+rankList[6].name='胡桃木'
 
 const searchUserData = []
 for (let i = 0; i < 7; i++) {
