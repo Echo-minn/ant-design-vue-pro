@@ -30,17 +30,17 @@
             :active-tab-key="noTitleKey"
             @tabChange="key => onTabChange(key, 'noTitleKey')"
           >
-            <p v-if="noTitleKey === 'article'">
+            <p v-if="noTitleKey === 'userNub'">
               article content
             </p>
-            <p v-else-if="noTitleKey === 'app'">
+            <p v-else-if="noTitleKey === 'searchNub'">
               app content
             </p>
-            <p v-else="noTitleKey === 'project'">
+            <p v-else="noTitleKey === 'saleNub'">
               project content
             </p>
 
-            <a slot="tabBarExtraContent" href="#">More</a>
+<!--            <a slot="tabBarExtraContent" href="#">More</a>-->
           </a-card>
 
         </a-col>
@@ -51,8 +51,11 @@
         <a-rate class="rate" :default-value="rate" disabled :tooltips="ratedesc" />
         <span class="ant-rate-text">{{ ratedesc[rate - 1] }}</span>
         </a-col>
+
         <a-col class="button-outer" :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
+          <router-link :to="{name:'Analysis'}">
           <a-button class="next-button" type="primary"> Go forward<a-icon type="right" /> </a-button>
+          </router-link>
         </a-col>
       </a-row>
     </div>
@@ -72,8 +75,8 @@ export default {
   },
   data(){
     return{
-      rate:2,
-      ratedesc: ['terrible', 'bad', 'normal', 'good', 'wonderful'],
+      rate:4,
+      ratedesc: ['影响力：低', '影响力：较低', '影响力：一般', '影响力：较高', '影响力：高'],
       tabList: [
         {
           key: 'tab1',
@@ -89,23 +92,24 @@ export default {
         tab1: 'content1',
         tab2: 'content2',
       },
+
       tabListNoTitle: [
         {
-          key: 'article',
-          tab: 'article',
+          key: 'userNub',
+          tab: '用户数',
         },
         {
-          key: 'app',
-          tab: 'app',
+          key: 'searchNum',
+          tab: '搜索量',
         },
         {
-          key: 'project',
-          tab: 'project',
+          key: 'saleNum',
+          tab: '销售量',
         },
       ],
 
       key: 'tab1',
-      noTitleKey: 'app',
+      noTitleKey: 'userNub',
 
       wordCloud:null,
       worddata: [{

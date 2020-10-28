@@ -152,10 +152,11 @@
       :bordered="false"
       title="圈子列表">
 
+
       <div slot="extra">
-        <a-radio-group v-model="status">
+        <a-radio-group v-model="status" @change="OnListRadioChange">
           <a-radio-button value="all">全部</a-radio-button>
-          <a-radio-button value="processing">我的关注</a-radio-button>
+          <a-radio-button value="concern">我的关注</a-radio-button>
 <!--          <a-radio-button value="waiting">等待中</a-radio-button>-->
         </a-radio-group>
         <a-input-search style="margin-left: 16px; width: 272px;" />
@@ -449,8 +450,10 @@ export default {
       barData,
       barData2,
 
-      //
+      //销售额复选框的值
       radioValue:'a',
+      //列表复选框的值
+      listRadioValue:'all',
       pieScale,
       pieData,
       pieData2,
@@ -468,7 +471,11 @@ export default {
     }
   },
   methods:{
-    //复选框改变
+    //列表复选框
+    OnListRadioChange(e){
+    this.listRadioValue=e.target.value;
+    },
+    //销售额复选框改变
     radioOnchange(e)
     {
     this.radioValue=e.target.value;
@@ -1062,7 +1069,7 @@ export default {
         },
         yAxis: {
           type: 'value',
-          name: 'AQI指数',
+          name: '市场规模',
           nameLocation: 'end',
           nameGap: 20,
           nameTextStyle: {
