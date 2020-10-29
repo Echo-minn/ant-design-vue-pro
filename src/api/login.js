@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 const userApi = {
-  Login: '/auth/login',
+  Login: '/user/common/login',
   Logout: '/auth/logout',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
@@ -41,12 +41,18 @@ export function getSmsCaptcha (parameter) {
 }
 
 export function getInfo () {
+  return {
+    avatar: 'avatar.jpg',
+    name: 'admin',
+    role: { id: 'admin', name: '管理员', permissions: [ { 'roleId': 'admin', 'permissionId': 'admin' } ] }
+  }
+}
+
+export function getUserInfo (parameter) {
   return request({
     url: userApi.UserInfo,
     method: 'get',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
+    data: parameter
   })
 }
 
@@ -58,13 +64,11 @@ export function getCurrentUserNav () {
 }
 
 export function logout () {
-  return request({
-    url: userApi.Logout,
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
-  })
+  return {
+    avatar: 'avatar.jpg',
+    name: 'admin',
+    role: { id: 'admin', name: '管理员', permissions: [ { 'roleId': 'admin', 'permissionId': 'admin' } ] }
+  }
 }
 
 /**

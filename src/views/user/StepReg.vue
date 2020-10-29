@@ -5,7 +5,7 @@
         size="large"
         type="text"
         placeholder="用户名"
-        v-decorator="[{rules: [{ required: true, type: 'email', message: '请输入用户昵称' }], validateTrigger: ['change', 'blur']}]"
+        v-decorator="['nickName', {rules: [{ required: true, message: '请输入用户昵称' }], validateTrigger: ['change', 'blur']}]"
       ></a-input>
     </a-form-item>
 
@@ -15,7 +15,7 @@
       :getPopupContainer="(trigger) => trigger.parentElement"
       v-model="state.passwordLevelChecked">
       <template slot="content">
-        <div :style="{ width: '240px' }" >
+        <div :style="{ width: '240px' }">
           <div :class="['user-register', passwordLevelClass]">强度：<span>{{ passwordLevelName }}</span></div>
           <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor " />
           <div style="margin-top: 10px;">
@@ -41,39 +41,35 @@
       ></a-input-password>
     </a-form-item>
 
-    <a-form-item>
-      <a-input size="large" placeholder="11 位手机号" v-decorator="['mobile', {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
-        <a-select slot="addonBefore" size="large" defaultValue="+86">
-          <a-select-option value="+86">+86</a-select-option>
-          <a-select-option value="+87">+87</a-select-option>
-        </a-select>
-      </a-input>
-    </a-form-item>
-    <!--<a-input-group size="large" compact>
-          <a-select style="width: 20%" size="large" defaultValue="+86">
-            <a-select-option value="+86">+86</a-select-option>
-            <a-select-option value="+87">+87</a-select-option>
-          </a-select>
-          <a-input style="width: 80%" size="large" placeholder="11 位手机号"></a-input>
-        </a-input-group>-->
+    <!--
+  <a-form-item>
+    <a-input size="large" placeholder="11 位手机号"
+             v-decorator="['mobile', {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
+      <a-select slot="addonBefore" size="large" defaultValue="+86">
+        <a-select-option value="+86">+86</a-select-option>
+        <a-select-option value="+87">+87</a-select-option>
+      </a-select>
+    </a-input>
+  </a-form-item>
 
-    <a-row :gutter="16">
-      <a-col class="gutter-row" :span="16">
-        <a-form-item>
-          <a-input size="large" type="text" placeholder="验证码" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
-            <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-          </a-input>
-        </a-form-item>
-      </a-col>
-      <a-col class="gutter-row" :span="8">
-        <a-button
-          class="getCaptcha"
-          size="large"
-          :disabled="state.smsSendBtn"
-          @click.stop.prevent="getCaptcha"
-          v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>
-      </a-col>
-    </a-row>
+  <a-row :gu16">
+    <a-col class="gutter-row" :span="16">
+      <a-form-item>
+        <a-input size="large" type="text" placeholder="验证码"
+                 v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
+          <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }" />
+        </a-input>
+      </a-form-item>
+    </a-col>
+    <a-col class="gutter-row" :span="8">
+      <a-button
+        class="getCaptcha"
+        size="large"
+        :disabled="state.smsSendBtn"
+        @click.stop.prevent="getCaptcha"
+        v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>
+    </a-col>
+  </a-row>-->
 
     <div style="position: relative">
       <a-button
@@ -101,6 +97,7 @@
 <script>
 import { getSmsCaptcha } from '@/api/login'
 import { deviceMixin } from '@/store/device-mixin'
+import axios from 'axios'
 
 const levelNames = {
   0: '低',
@@ -122,8 +119,7 @@ const levelColor = {
 }
 export default {
   name: 'StepReg',
-  components: {
-  },
+  components: {},
   mixins: [deviceMixin],
   data () {
     return {
@@ -212,9 +208,23 @@ export default {
 
     handleSubmit () {
       const { form: { validateFields }, state } = this
-      validateFields({ force: true }, (err) => {
+      validateFields({ force: true }, (err, values) => {
         if (!err) {
+          console.log(values)
           // TODO 用户注册接口
+          axios.post('/api/user/common/register', {
+            consume: '',
+            headUrl: '',
+            id: '',
+            nickName: values.nickName,
+            password: values.password,
+            profession: '',
+            role: 0
+          }).then(res => {
+            if (res.status === 200) {
+              alert.success('注册成功')
+            }
+          })
           this.$emit('nextStep')
           state.passwordLevelChecked = false
           // $router.push({ name: 'registerResult', params: { ...values } })
@@ -326,7 +336,8 @@ export default {
   right: 0;
   bottom: 0;
 }
-.back-button{
+
+.back-button {
 
 }
 </style>
