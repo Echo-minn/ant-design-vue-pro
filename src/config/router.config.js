@@ -21,25 +21,25 @@ export const asyncRouterMap = [
         name: 'dashboard',
         redirect: '/dashboard/workplace',
         component: RouteView,
-        meta: { title: '首页', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        meta: { title: '首页', keepAlive: true, icon: bxAnaalyse, permission: [ 'admin' ] },
         children: [
           {
             path: '/dashboard/workplace',
             name: 'ResultFail',
             component: () => import(/* webpackChunkName: "result" */ '@/views/result/Error'),
-            meta: { title: '首页', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
+            meta: { title: '首页', keepAlive: false, hiddenHeaderContent: true, permission: [ 'admin' ] }
           },
           {
             path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
             name: 'Analysis',
             component: () => import('@/views/dashboard/Analysis'),
-            meta: { title: '数据分析', keepAlive: false, permission: [ 'dashboard' ] }
+            meta: { title: '数据分析', keepAlive: false, permission: [ 'admin' ] }
           },
           {
             path: '/result/fail',
             name: '工作台',
             component: () => import('@/views/dashboard/Workplace'),
-            meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: [ 'dashboard' ] }
+            meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: [ 'admin' ] }
           }
         ]
       },
@@ -78,7 +78,7 @@ export const asyncRouterMap = [
         name: 'list',
         component: RouteView,
         redirect: '/list/table-list',
-        meta: { title: '文化广场', icon: 'table', permission: [ 'table' ] },
+        meta: { title: '文化广场', icon: 'table', permission: [ 'admin' ] },
         children: [
           // {
           //   path: '/list/table-list/:pageNo([1-9]\\d*)?',
@@ -91,7 +91,7 @@ export const asyncRouterMap = [
             path: '/list/basic-list',
             name: 'BasicList',
             component: () => import('@/views/list/BasicList'),
-            meta: { title: '文化广场', keepAlive: true, permission: [ 'table' ] }
+            meta: { title: '文化广场', keepAlive: true, permission: [ 'admin' ] }
           },
           // {
           //   path: '/list/card',
@@ -175,31 +175,31 @@ export const asyncRouterMap = [
         name: 'SearchList',
         component: () => import('@/views/list/search/SearchLayout'),
         redirect: '/invest/search/article',
-        meta: { title: '投资渠道',icon:'warning', keepAlive: true, permission: [ 'table' ] },
+        meta: { title: '投资渠道',icon:'warning', keepAlive: true, permission: [ 'admin' ] },
         children: [
           {
             path: '/invest/search/jointname',
             name: 'JointName',
             component: () => import('../views/list/search/Article'),
-            meta: { title: '联名', permission: [ 'table' ] }
+            meta: { title: '联名', permission: [ 'admin' ] }
           },
           {
             path: '/invest/search/sponsor',
             name: 'Sponsor',
             component: () => import('../views/list/search/Projects'),
-            meta: { title: '赞助引流', permission: [ 'table' ] }
+            meta: { title: '赞助引流', permission: [ 'admin' ] }
           },
           {
             path: '/invest/search/adver',
             name: 'Advertise',
             component: () => import('../views/list/search/Applications'),
-            meta: { title: '广告合作', permission: [ 'table' ] }
+            meta: { title: '广告合作', permission: [ 'admin' ] }
           },
           {
             path: '/invest/search/copyright',
             name: 'CopyRight',
             component: () => import('../views/list/search/Copyright'),
-            meta: { title: '版权购买', permission: [ 'table' ] }
+            meta: { title: '版权购买', permission: [ 'admin' ] }
           }
         ]
       },
@@ -210,13 +210,13 @@ export const asyncRouterMap = [
         name: 'report',
         component: RouteView,
         redirect: '/report/research-report',
-        meta: { title: '研究报告', icon: 'form', permission: [ 'table' ] },
+        meta: { title: '研究报告', icon: 'form', permission: [ 'admin' ] },
         children: [
           {
             path: '/report/research-report',
             name: 'ResearchReport',
             component: () => import('@/views/reports/ResearchReport'),
-            meta: { title: '研究报告', keepAlive: true, permission: [ 'table' ] }
+            meta: { title: '研究报告', keepAlive: true, permission: [ 'admin' ] }
           },
         ]
       },
@@ -256,19 +256,19 @@ export const asyncRouterMap = [
         component: RouteView,
         redirect: '/account/center',
         name: 'account',
-        meta: { title: '个人页', icon: 'user', keepAlive: true, permission: [ 'user' ] },
+        meta: { title: '个人页', icon: 'user', keepAlive: true, permission: [ 'admin' ] },
         children: [
           {
             path: '/account/center',
             name: 'center',
             component: () => import('@/views/account/center'),
-            meta: { title: '个人中心', keepAlive: true, permission: [ 'user' ] }
+            meta: { title: '个人中心', keepAlive: true, permission: [ 'admin' ] }
           },
           {
             path: '/account/settings',
             name: 'settings',
             component: () => import('@/views/account/settings/Index'),
-            meta: { title: '个人设置', hideHeader: true, permission: [ 'user' ] },
+            meta: { title: '个人设置', hideHeader: true, permission: [ 'admin' ] },
             redirect: '/account/settings/base',
             hideChildrenInMenu: true,
             children: [
@@ -276,31 +276,31 @@ export const asyncRouterMap = [
                 path: '/account/settings/base',
                 name: 'BaseSettings',
                 component: () => import('@/views/account/settings/BaseSetting'),
-                meta: { title: '基本设置', hidden: true, permission: [ 'user' ] }
+                meta: { title: '基本设置', hidden: true, permission: [ 'admin' ] }
               },
               {
                 path: '/account/settings/security',
                 name: 'SecuritySettings',
                 component: () => import('@/views/account/settings/Security'),
-                meta: { title: '安全设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '安全设置', hidden: true, keepAlive: true, permission: [ 'admin' ] }
               },
               {
                 path: '/account/settings/custom',
                 name: 'CustomSettings',
                 component: () => import('@/views/account/settings/Custom'),
-                meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '个性化设置', hidden: true, keepAlive: true, permission: [ 'admin' ] }
               },
               {
                 path: '/account/settings/binding',
                 name: 'BindingSettings',
                 component: () => import('@/views/account/settings/Binding'),
-                meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '账户绑定', hidden: true, keepAlive: true, permission: [ 'admin' ] }
               },
               {
                 path: '/account/settings/notification',
                 name: 'NotificationSettings',
                 component: () => import('@/views/account/settings/Notification'),
-                meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: [ 'user' ] }
+                meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: [ 'admin' ] }
               }
             ]
           }
