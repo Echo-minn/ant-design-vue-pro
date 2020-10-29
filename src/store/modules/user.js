@@ -77,18 +77,13 @@ const user = {
     },
 
     // 登出
-    Logout ({ commit, state }) {
+    Logout ({ commit }) {
       return new Promise((resolve) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          storage.remove(ACCESS_TOKEN)
-          storage.remove(USER_NAME)
-          resolve()
-        }).catch(() => {
-          resolve()
-        }).finally(() => {
-        })
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        storage.remove(ACCESS_TOKEN)
+        storage.remove(USER_NAME)
+        resolve('退出登录成功')
       })
     }
 
