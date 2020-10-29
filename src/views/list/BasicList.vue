@@ -6,10 +6,10 @@
       title="文化广场">
 
       <div slot="extra">
-        <a-radio-group v-model="status">
+        <a-radio-group v-model="status" @change="onRadioChange">
           <a-radio-button value="all">全部</a-radio-button>
-          <a-radio-button value="processing">火热</a-radio-button>
-          <a-radio-button value="waiting">已关注</a-radio-button>
+          <a-radio-button value="hot">火热</a-radio-button>
+          <a-radio-button value="concern">已关注</a-radio-button>
         </a-radio-group>
         <a-input-search style="margin-left: 16px; width: 272px;"  @search="onSearch" />
       </div>
@@ -25,13 +25,14 @@
             <a slot="title">{{ item.title }}</a>
           </a-list-item-meta>
           <div slot="actions">
-            <a @click="edit(item)">编辑</a>
+<!--            <a @click="edit(item)">查看</a>-->
+            <a>查看</a>
           </div>
           <div slot="actions">
             <a-dropdown>
               <a-menu slot="overlay">
-                <a-menu-item><a>编辑</a></a-menu-item>
-                <a-menu-item><a>删除</a></a-menu-item>
+                <a-menu-item><a>关注</a></a-menu-item>
+                <a-menu-item><a>不再出现</a></a-menu-item>
               </a-menu>
               <a>更多<a-icon type="down"/></a>
             </a-dropdown>
@@ -127,6 +128,10 @@ export default {
     }
   },
   methods: {
+    //复选框改变
+    onRadioChange(){
+      console.log(this.status)
+    },
     //搜索
     onSearch(value){
       console.log(value)

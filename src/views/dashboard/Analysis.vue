@@ -63,9 +63,11 @@
       </a-col>
     </a-row>
 
-    <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}">
+
+
+<!--    <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}">-->
       <div class="salesCard">
-        <a-tabs default-active-key="1" size="large" :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}">
+        <a-tabs default-active-key="1"  @change="tabsCallback" size="large" :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}">
           <div class="extra-wrapper" slot="tabBarExtraContent">
             <div class="extra-item">
               <a>今日</a>
@@ -75,7 +77,24 @@
             </div>
             <a-range-picker :style="{width: '256px'}" />
           </div>
-          <a-tab-pane loading="true" tab="销售额" key="1">
+
+
+          <a-tab-pane loading="true"  tab="访问量" key="1">
+            <a-row>
+              <a-col :xl="18" :lg="18" :md="18" :sm="24" :xs="24">
+                <!--                <bar :data="barData2" title="销售额趋势" />-->
+                <!--                访问相关数据-->
+                <div class="myEcharts" id="myCharts" ref="myCharts" style="height: 50vh"></div>
+
+              </a-col>
+              <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
+                <!--                <rank-list title="店面销售排行榜" :list="rankList"/>-->
+                <!--                访问的其他数据-->
+              </a-col>
+            </a-row>
+          </a-tab-pane>
+
+          <a-tab-pane tab="销售额" key="2">
             <a-row>
               <a-col :xl="16" :lg="12" :md="12" :sm="24" :xs="24">
                 <bar :data="barData" title="销售额排行" />
@@ -85,19 +104,12 @@
               </a-col>
             </a-row>
           </a-tab-pane>
-          <a-tab-pane tab="访问量" key="2">
-            <a-row>
-              <a-col :xl="16" :lg="12" :md="12" :sm="24" :xs="24">
-                <bar :data="barData2" title="销售额趋势" />
-              </a-col>
-              <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list title="店面销售排行榜" :list="rankList"/>
-              </a-col>
-            </a-row>
-          </a-tab-pane>
+
+
         </a-tabs>
       </div>
-    </a-card>
+<!--    </a-card>-->
+
 
     <div class="antd-pro-pages-dashboard-analysis-twoColLayout" :class="!isMobile && 'desktop'">
       <a-row :gutter="24" type="flex" :style="{ marginTop: '24px' }">
@@ -225,6 +237,7 @@ import {
   MiniSmoothArea
 } from '@/components'
 import { baseMixin } from '@/store/app-mixin'
+import echarts from 'echarts'
 
 const barData = []
 const barData2 = []
@@ -309,12 +322,14 @@ for (let i = 0; i < 50; i += 1) {
 const DataSet = require('@antv/data-set')
 
 const sourceData = [
-  { item: '家用电器', count: 32.2 },
-  { item: '食用酒水', count: 21 },
-  { item: '个护健康', count: 17 },
-  { item: '服饰箱包', count: 13 },
-  { item: '母婴产品', count: 9 },
-  { item: '其他', count: 7.8 }
+  { item: '类别1', count: 32.2 },
+  { item: '类别2', count: 21 },
+  { item: '类别2', count: 17 },
+  { item: '类别2', count: 13 },
+  { item: '类别3', count: 9 },
+  { item: '其他', count: 2.8 },
+  { item: '其他1', count: 5.8 }
+
 ]
 
 const pieScale = [{
@@ -348,6 +363,9 @@ export default {
   },
   data () {
     return {
+      //Echarts实例
+      chart1: null,
+
       loading: true,
       rankList,
 
@@ -370,14 +388,136 @@ export default {
       }
     }
   },
+  methods:{
+    tabsCallback(e){
+      if(e==='2')
+      {
+      }
+    },
+    // Echarts 的 resize 方法
+    resizeHandler() {
+      this.chart1.resize()
+    },
+    initEchart1() {
+      // 以下三步即可完成echarts的初始化使用
+      //初始化Echarts实例
+      const _this = this
+      _this.chart1 = echarts.init(this.$refs.myCharts);
+      // console.log(this.$refs.myCharts)
+      const colors = ['#5793f3', '#d14a61', '#675bba'];
+
+
+      const options = {
+        color: colors,
+
+        tooltip: {
+          trigger: 'none',
+          axisPointer: {
+            type: 'cross'
+          }
+        },
+        legend: {
+          data:['2015 降水量', '2016 降水量']
+        },
+        grid: {
+          top: 70,
+          bottom: 50
+        },
+        xAxis: [
+          {
+            type: 'category',
+            axisTick: {
+              alignWithLabel: true
+            },
+            axisLine: {
+              onZero: false,
+              lineStyle: {
+                color: colors[1]
+              }
+            },
+            axisPointer: {
+              label: {
+                formatter: function (params) {
+                  return '降水量  ' + params.value
+                    + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                }
+              }
+            },
+            data: ['2016-1', '2016-2', '2016-3', '2016-4', '2016-5', '2016-6', '2016-7', '2016-8', '2016-9', '2016-10', '2016-11', '2016-12']
+          },
+          {
+            type: 'category',
+            axisTick: {
+              alignWithLabel: true
+            },
+            axisLine: {
+              onZero: false,
+              lineStyle: {
+                color: colors[0]
+              }
+            },
+            axisPointer: {
+              label: {
+                formatter: function (params) {
+                  return '降水量  ' + params.value
+                    + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                }
+              }
+            },
+            data: ['2015-1', '2015-2', '2015-3', '2015-4', '2015-5', '2015-6', '2015-7', '2015-8', '2015-9', '2015-10', '2015-11', '2015-12']
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '2015 降水量',
+            type: 'line',
+            xAxisIndex: 1,
+            smooth: true,
+            data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+          },
+          {
+            name: '2016 降水量',
+            type: 'line',
+            smooth: true,
+            data: [3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7]
+          }
+        ]
+      };
+
+
+      _this.chart1.setOption(options)
+      window.addEventListener('resize',_this.resizeHandler)
+    }
+  },
   created () {
     setTimeout(() => {
       this.loading = !this.loading
     }, 1000)
-  }
+  },
+  mounted() {
+    this.initEchart1()
+  },
+  beforeDestroy() {
+    // 清理工作 避免内存泄漏
+    // 销毁监听事件
+    window.removeEventListener('resize', this.resizeHandler)
+    // 销毁 Echarts 实例
+    this.chart1.dispose()
+  },
 }
 </script>
 
+<style>
+.salesCard{
+  background-color: white;
+  padding: 0;
+}
+</style>
 <style lang="less" scoped>
   .extra-wrapper {
     line-height: 55px;
