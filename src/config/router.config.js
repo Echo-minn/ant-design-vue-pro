@@ -44,6 +44,38 @@ export const asyncRouterMap = [
         ]
       },
 
+      // result
+      {
+        path: '/result',
+        name: 'result',
+        component: RouteView,
+        redirect: '/result/success',
+        meta: { title: '圈子概览', keepAlive:true, icon: 'check-circle-o', permission: [ 'admin' ] },
+        children: [
+          {
+            path: '/result/success',
+            name: 'ResultSuccess',
+            component: () => import('@/views/result/Success'),
+            meta: { title: '圈子概览',keepAlive: false, permission: [ 'admin' ] }
+          }
+        ]
+      },
+      // 对比
+      {
+        path: '/comparison',
+        name: 'comparison',
+        component: RouteView,
+        redirect: '/comparison/comparison',
+        meta: { title: 'comparison', keepAlive:true, icon: 'check-circle-o', permission: [ 'admin' ] },
+        children: [
+          {
+            path: '/comparison/comparison',
+            name: 'comparison',
+            component: () => import('@/views/comparison/Comparison'),
+            meta: { title: 'comparison',keepAlive: false, permission: [ 'admin' ] }
+          }
+        ]
+      },
       // forms
       // {
       //   path: '/form',
@@ -152,22 +184,7 @@ export const asyncRouterMap = [
       //   ]
       // },
 
-      // result
-      {
-        path: '/result',
-        name: 'result',
-        component: RouteView,
-        redirect: '/result/success',
-        meta: { title: '圈子概览', icon: 'check-circle-o', permission: [ 'result' ] },
-        children: [
-          {
-            path: '/result/success',
-            name: 'ResultSuccess',
-            component: () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
-            meta: { title: '圈子概览', keepAlive: false, hiddenHeaderContent: true, permission: [ 'result' ] }
-          }
-        ]
-      },
+
 
       // investment
       {

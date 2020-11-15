@@ -282,6 +282,13 @@ const searchTableColumns = [
     align: 'right',
     sorter: (a, b) => a.range - b.range,
     scopedSlots: { customRender: 'range' }
+  },
+  {
+    dataIndex: 'range',
+    title: '周涨幅',
+    align: 'right',
+    sorter: (a, b) => a.range - b.range,
+    scopedSlots: { customRender: 'range' }
   }
 ]
 const searchData = []

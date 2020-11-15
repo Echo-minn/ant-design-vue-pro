@@ -42,7 +42,8 @@ const constantRouterComponents = {
   // result
   'ResultSuccess': () => import(/* webpackChunkName: "result" */ '@/views/result/Success'),
   'ResultFail': () => import(/* webpackChunkName: "result" */ '@/views/result/Error'),
-
+  //对比页面
+  'comparison':()=>import('@/views/comparison/Comparison'),
   // exception
   'Exception403': () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
   'Exception404': () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
